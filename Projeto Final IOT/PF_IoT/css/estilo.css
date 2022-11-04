@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: #007AA2;
+}
+
+form{
+    background-color: #0001;
+    padding: 10px;
+    border-radius: 10px;
+}
+.bg-color{
+    background: #021000;
+    color: #fff;
+}
+
+h3{
+    : #0001;
+    font-family: 'Chakra Petch', sans-serif;
+}
+h2{
+    color: #021000;
+    font-family: 'Fredoka One', cursive;
+}
+
+#fundo{
+    background: #007AA2;
+}
+#container{
+    border: 2px solid #021000;
+    width: 200px;
+    height: 200px;
+}
+.sist{
+    border: 2px solid #021000;
+    background: #fff;
+    border-radius: 10px;
+}
+
+#cont-1{
+    background-color: #0000ff;
+}
+#cont-2{
+    background-color: aqua;
+}

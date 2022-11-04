@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		 <!-- Required meta tags -->
+		 <meta charset="utf-8">
+		 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		
+		<!-- Estilo Css -->
+		<link rel="stylesheet" href="css/estilo.css">
+
+		<title>Sistema Controle de Estoque</title>
+	</head>
+	
+
+	<body onload="load()"> <!-- Aqui chama a funcao que executa a cada 30s -->
+		<div class="container n">
+			<div class="">
+				<hr>
+				<h2 class="logo"> Sistema IOT Controle de Estoque </h2>
+			</div>
+
+			<div class="alert alert-primary" role="alert">
+				<div class="row justify-content-center">
+					<strong> Registro de Entrada e Saída do Funcionário </strong>
+				</div>
+			</div>
+
+			<div class="container">
+				<form action="" method="post">
+			<div class="form-grupo">
+				<!-- Concatenando html com php -->
+				<?php
+					include "conexao.php";
+					$sql = "SELECT * FROM ponto"; 
+					$resultado = mysqli_query($conexao,$sql) or die (mysqli_error($conexao));
+				?> 
+				<table class="table table-striped table bordered">
+				<!-- <caption>Acesso dos Funcionários ao Estoque</caption> -->
+					<thead class='table-succes'>
+						<tr>
+							<th>Identificação</th>
+							<th>Funcionário</th>
+							<th>Data/Hora</th>
+						</tr>	
+					</thead>
+					<?php
+					//Gravou o resultado no array linha e passou para as variaveis locais
+						while ($linha=mysqli_fetch_array($resultado)){
+							$id_cartao = $linha["id_cartao"];
+							$data_hora = $linha["data_hora"];
+							$funcionario = $linha["funcionario"];
+						?>
+						<tbody>
+							<tr>
+								<td><?php echo "$id_cartao"; ?></td>
+								<td><?php echo "$funcionario"; ?></td>
+								<td><?php echo "$data_hora"; ?></td>
+							</tr>
+							<?php
+						}
+						mysqli_close($conexao);
+							?>
+						</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="container">
+			
+			<br>
+			<div class="alert alert-primary" role="alert">
+				<div class="row justify-content-center">
+					<strong> ESTOQUE </strong>
+				</div>
+			</div>
+
+
+				<div class="alert alert-primary" role="alert">
+				<div class="row justify-content-center">
+					<strong> Quantidade de Produtos em Estoque </strong>
+				</div>
+			</div>
+
+
+			<div class="container">
+		<form action="" method="post">
+			<div class="form-grupo">
+				<!-- Concatenando html com php -->
+				<?php
+					include "conexao.php";
+
+					//Para produtos tipo1
+					$query = "SELECT count(codigo) as total1 from produtos WHERE tipo=1";
+					$result1 = mysqli_query($conexao, $query);
+					$qtd1 = mysqli_fetch_assoc($result1);		
+
+					//Para produtos tipo2
+					$query = "SELECT count(codigo) as total2 from produtos WHERE tipo=2";
+					$result2 = mysqli_query($conexao, $query);
+					$qtd2 = mysqli_fetch_assoc($result2);
+					
+				?> 
+				<table class="table table-striped table bordered">
+				<!-- <caption>Acesso dos Funcionários ao Estoque</caption> -->
+					<thead class='table-succes'>
+						<tr>
+							<th>Calculadoras</th>	
+							<th>Réguas</th>						
+						</tr>	
+					</thead>
+
+						<tbody>
+							<tr>
+								<td><?php echo $qtd1['total1']; ?></td>		
+								<td><?php echo $qtd2['total2']; ?></td>		
+							</tr>
+							<?php
+						mysqli_close($conexao);
+							?>
+						</tbody>
+				</table>
+
+
+				<div class="container">
+		<form action="" method="post">
+			<div class="form-grupo">
+
+				<div class="alert alert-primary" role="alert">
+				<div class="row justify-content-center">
+					<strong> Produtos em Estoque </strong>
+				</div>
+			</div>
+
+				<!-- Concatenando html com php -->
+				<?php
+					include "conexao.php";
+					include "banco-dados.php";
+					$sql = "SELECT * FROM produtos"; 
+					$resultado = mysqli_query($conexao,$sql) or die (mysqli_error($conexao));
+					
+				?> 
+				<table class="table table-striped table bordered">
+				<!-- <caption>Acesso dos Funcionários ao Estoque</caption> -->
+					<thead class='table-succes'>
+						<tr>
+							<th>Produto</th>							
+							<th>Código</th>
+						</tr>	
+					</thead>
+
+					<?php
+					
+
+					//Gravou o resultado no array linha e passou para as variaveis locais
+						while ($linha=mysqli_fetch_array($resultado)){
+							$produto = $linha["produto"];
+							$codigo = $linha["codigo"];
+						?>
+						<tbody>
+							<tr>
+								<td><?php echo "$produto"; ?></td>
+								<td><?php echo "$codigo"; ?></td>
+							</tr>
+							<?php
+						}
+							?>
+						</tbody>
+				</table>
+
+
+			</div>
+		</div>
+	<br>
+	</form>
+		</div>
+	<!--
+	 Aqui o java script atualiza a pagina de forma automatica a cada 30s
+	-->
+	<script type="text/javascript">
+		function load()
+		{
+			setTimeout("window.open(self.location, '_self');", 3000);
+		}
+	</script>
+	</body>
+</html>
